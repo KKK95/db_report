@@ -98,8 +98,15 @@
 					{
 						if ($row['type']==1)
 						{
-					//		print ("<tr><a href=\"update_general_talk_form.php?id=%d\">修改紀錄</a></tr>",$row['talk_id']);
-							;
+							echo "<a href=\"update_general_talk_form.php?id=".$row['talk_id']."\">修改紀錄</a>";
+						}
+						if ($row['type']==2)
+						{
+							echo "<a href=\"update_general_talk_form.php?id=".$row['talk_id']."\">修改紀錄</a>";
+						}
+						if ($row['type']==3)
+						{
+							echo "<a href=\"new_one_of_two_talk_form.php?id=".$row['talk_id']."\">修改紀錄</a>";
 						}
 					}	
 					echo "<a href=\"check_general_talk_form.php?id=".$row['talk_id']."\">查看紀錄</a>";
@@ -127,7 +134,7 @@
 															"&type=".$type1.
 															"\">一般會談紀錄</option>
 					<option value=\"一般會談紀錄\">住宿訪視紀錄</option>
-					<option value=\"new_one_of_two_talk_form.phpteacher_ac=".$ac.
+					<option value=\"new_one_of_two_talk_form.php?teacher_ac=".$ac.
 															"&class_year=".$_GET['class_year'].
 															"&sem=".$_GET['sem'].
 															"&type=".$type3."\">二一學生輔導紀錄</option>
