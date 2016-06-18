@@ -25,7 +25,7 @@ function initialize()
 	require_once("login_check.php");			//login_check.php 是用來檢查用戶是否登錄了
 	
 	$sql = "SELECT member.addr FROM member, class_list WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
-			AND student_ac=member.ac";
+			AND class_list.student_ac=member.ac";
 	
 	$result = $conn->query($sql);									// mysql_query 查詢, 取得查詢的結果
 	
