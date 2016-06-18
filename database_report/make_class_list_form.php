@@ -8,15 +8,25 @@
 	
 	if ($_GET['id'] != "")
 	{
+		$sql = "select m.ac, m.name, m.access 
+				from class_list as cl, member as m 
+				where m.ac = cl.student_ac 
+				and cl.class_year = '".$_GET['id']."'".
+				" and cl.this_year = '".$_GET['now']."'".
+				" and cl.semester = '".$_GET['semester']."'".
+				" group by m.ac
+				ORDER BY m.ac DESC"; 
+/*
 		$sql = "select m.ac, m.name, m.access
 		from class_list as cl, member as m
 		where m.ac = cl.student_ac 
-		and cl.class_year = '".$_GET['id']."'"
-		." and cl.this_year = '".$_GET['now']."'".
-		"group by m.ac
+		and cl.class_year = '".$_GET['id']."'".
+		" and cl.this_year = '".$_GET['now']."'".
+		" group by m.ac
 		ORDER BY m.ac DESC"; 
+*/	
 	}
-	
+
 	$result=$conn->query($sql);
 ?>
 
@@ -46,6 +56,7 @@
           </tr>
         <?php
             $num_rows = $result->num_rows;	
+
 			if ($num_rows==0)
 			{
 				echo "<tr>列表沒有成員</tr>";
@@ -111,7 +122,7 @@
 		?>
 			<input value="<?php echo $_GET['now']?>" name="this_year" type="hidden">
 			<input value="<?php echo $_GET['id']?>" name="class_year" type="hidden">
-			<input value=1 name="semester" type="hidden">
+			<input value="<?php echo $_GET['semester']?>" name="semester" type="hidden">
 		</table>
 		<br />
 		<input type="submit" value="新增成員">
