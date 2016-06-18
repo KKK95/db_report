@@ -255,8 +255,8 @@
 
 					<input type="radio" name="need_to_transfer" id="need_to_transfer" value="1">
 					<label for="need_to_transfer">需轉介 </label>
-					<input type="radio" name="noneed_to_transfer" id="noneed_to_transfer" value="2">
-					<label for="noneed_to_transfer">不需轉介 </label>
+					<input type="radio" name="need_to_transfer" id="noneed_to_transfer" value="2">
+					<label for="need_to_transfer">不需轉介 </label>
 					
 				</th>
 			</tr>
@@ -282,8 +282,8 @@
 
 					<input type="radio" name="feeback" id="feeback" value="1">
 					<label for="feeback">需要 </label>
-					<input type="radio" name="feeback" id="no_feeback" value="2">
-					<label for="no_feeback">不需要 </label>
+					<input type="radio" name="feeback" id="nofeeback" value="2">
+					<label for="feeback">不需要 </label>
 				</th>
 			</tr>
 			

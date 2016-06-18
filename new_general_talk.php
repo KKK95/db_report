@@ -14,6 +14,17 @@
 		if ($_POST["telephone"]=="")
 			$_POST["telephone"] = NULL;
 		
+		if ($_POST["relationtext2"]=="")
+			$_POST["relationtext2"] = NULL;
+		if ($_POST["studytext2"]=="")
+			$_POST["studytext2"] = NULL;
+		if ($_POST["commont6"]=="")
+			$_POST["commont6"] = NULL;
+		if ($_POST["need_to_transfer"]== 2)
+			$_POST["transfer"] = 0;
+		if ($_POST["feeback"]== 2)
+			$_POST["transfer2"] = 0;
+		
 		$sql = "INSERT INTO general	(grade,user_id,user_name,telephone,addr,talkdate,talk_times,level,commont,life_schedule,commont2,family,commont3,social,
 										commont4,commont5,special_family,study,life,relation,relationtext,relation2,relationtext2,study2,studytext2,commont6,need_to_transfer
 										,transfer,feeback,transfer2)VALUES
@@ -26,7 +37,20 @@
 				'".$_POST["feeback"]."','".$_POST["transfer2"]."')";
 				
 		$result=$conn->query($sql);
-	
 		
+		$sql = "select g.talk_id
+				from general as g
+				where g.user_id = '".$_POST['user_id'].
+			   "' and g.talkdate = '".$_POST["year"]."-".$_POST["month"]."-".$_POST["day"].
+				"' ";
+		echo $sql;
+		$result=$conn->query($sql);
+		$row=$result->fetch_array();
+		
+		$sql = "INSERT INTO talking_record (class_year, this_year, semester, teacher_ac, student_ac, type, talk_id)VALUES
+				('".$_POST["class_year"]."','".$_POST["year"]."','".$_POST["semester"]."','".
+					$_POST["teacher_ac"]."','".$_POST["user_id"]."','".$_POST["type"]."','".$row['talk_id']."')";
+				
+		$result=$conn->query($sql);
 	
 ?>
