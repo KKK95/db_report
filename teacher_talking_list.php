@@ -18,17 +18,18 @@
 				and m.ac = cl.student_ac 
 				and cl.this_year = tl.this_year 
 				and cl.class_year = tl.class_year
-				and	cl.teacher_ac = '".$ac
-			."' and tl.class_year = '".$_GET['id']
-			."' and tl.this_year = '".$_GET['now']
-			."' ORDER BY cl.student_ac DESC";
+				and	cl.teacher_ac = '".$ac.
+			 "' and tl.class_year = '".$_GET['class_year'].
+			 "' and tl.this_year = '".$_GET['now'].
+			 "' and tl.semester = '".$_GET['sem'].
+			 "' ORDER BY cl.student_ac DESC";
 	
 	$result=$conn->query($sql);
 
 	$sql2 = "select cl.w_r
 			from class_list as cl
 			where cl.teacher_ac = '".$ac
-			."' and cl.class_year = '".$_GET['id']
+			."' and cl.class_year = '".$_GET['class_year']
 			."' and cl.this_year = '".$_GET['now']
 			."' group by cl.this_year, cl.class_year";
 	
@@ -104,15 +105,26 @@
         ?>
 		<?php 
 			if (isset($w_r))
-			{	if ($w_r[0]==1)
+			{	
+				if ($w_r[0]==1)
 				{
-						echo "<tr><th width=\"200\">
-						<select onchange=\"location.href=this.options[this.selectedIndex].value\">
-						<option value=\"\">新增紀錄</option>
-						<option value=\"new_general_talk_form.php\">一般會談紀錄</option>
-						<option value=\"一般會談紀錄\">住宿訪視紀錄</option>
-						<option value=\"new_one_of_two_talk_form.php\">二一學生輔導紀錄</option>
-						</select>";
+					$type1 = 1;
+					$type2 = 2;
+					$type3 = 3;
+					echo "<tr><th width=\"200\">
+					<select onchange=\"location.href=this.options[this.selectedIndex].value\">
+					<option value=\"\">新增紀錄</option>
+					<option value=\"new_general_talk_form.php?teacher_ac=".$ac.
+															"&class_year=".$_GET['class_year'].
+															"&sem=".$months.
+															"&type=".$type1.
+															"\">一般會談紀錄</option>
+					<option value=\"一般會談紀錄\">住宿訪視紀錄</option>
+					<option value=\"new_one_of_two_talk_form.phpteacher_ac=".$ac.
+															"&class_year=".$_GET['class_year'].
+															"&sem=".$months.
+															"&type=".$type3."\">二一學生輔導紀錄</option>
+					</select>";
 				//		$link_to_form = $_POST['type'];
 				//		echo "<a href=\"".$link_to_form."\">新增紀錄</a></th></tr>";
 				
