@@ -12,6 +12,7 @@
 		where m.ac = cl.student_ac 
 		and cl.class_year = '".$_GET['id']."'"
 		." and cl.this_year = '".$_GET['now']."'".
+		" and cl.semester = '".$_GET['semester']."'".
 		"group by m.ac
 		ORDER BY m.ac DESC"; 
 	}
