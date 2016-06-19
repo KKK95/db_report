@@ -24,8 +24,18 @@ function initialize()
 
 	require_once("login_check.php");			//login_check.php 是用來檢查用戶是否登錄了
 	
-	$sql = "SELECT member.addr, member.name FROM member, class_list WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
-			AND class_list.student_ac=member.ac";
+	if(isset($_GET['year']) && isset($_GET['sem']) && isset($_GET['class'])) {
+		$sql = "SELECT member.addr, member.name FROM member, class_list 
+				WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
+				AND class_list.student_ac=member.ac
+				AND class_list.this_year=" . $_GET['year'] .
+				" AND class_list.semester=" . $_GET['sem'] . 
+				" AND class_list.class_year=" . $_GET['class'];
+	}
+	else {
+		$sql = "SELECT member.addr, member.name FROM member, class_list WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
+				AND class_list.student_ac=member.ac AND class_list.this_year=105";
+	}
 	
 	$result = $conn->query($sql);									// mysql_query 查詢, 取得查詢的結果
 	?>
@@ -49,7 +59,7 @@ function initialize()
 		}
 	}
 
-	var i, marker, infoWindow = new google.maps.InfoWindow(), geocoder = new google.maps.Geocoder();;
+	var i, marker, infoWindow = new google.maps.InfoWindow(), geocoder = new google.maps.Geocoder();
 	
 	for(i = 0; i < sort_addr.length; i++) {
 		geocoder.geocode({ 'address' : sort_addr[i] }, function(results, status) {
@@ -80,7 +90,34 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </head>
 
 <body>
-<div id="googleMap" style="width:500px;height:380px;"></div>
+<div id="" style="width:500px;height:40px;">
+	<table>
+		<tr>
+		<?php
+		$sql = "SELECT cl.this_year, cl.class_year, cl.semester FROM class_list as cl, member as m
+				where m.ac = cl.student_ac and cl.teacher_ac = '". $_SESSION["ac"] ."'  
+				GROUP BY this_year, class_year, semester 
+				ORDER BY this_year DESC, semester DESC";
+		
+		$result=$conn->query($sql);
+		
+		while($row = $result->fetch_assoc()) {
+			$year = $row['this_year'];
+			$class = $row ['class_year'];
+			$sem = $row['semester'];
+			
+			echo "<td><a href='student_address.php?year=" . $year . "&sem=" . $sem . "&class=" . $class . "'>";
+			echo $year . "年度";
+			if($sem == 1) echo "上";
+			else echo "下";
+			echo $class . "級";
+			echo "</a></td>";
+		}
+		?>
+		</tr>
+	</table>
+</div>
+<div id="googleMap" style="width:800px;height:480px;"></div>
 
 </body>
 </html>
