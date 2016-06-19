@@ -12,7 +12,7 @@
 
 	$ac=$_SESSION['ac'];	
 	
-    $sql = "SELECT tl.type, tl.talk_id, m.name, tl.this_year, cl.w_r, g.talkdate
+    $sql = "SELECT tl.type, tl.talk_id, m.name, tl.this_year, cl.w_r, g.talkdate, cl.semester
 			FROM talking_record as tl, member as m, general as g, class_list as cl
 			where tl.talk_id = g.talk_id 
 				and m.ac = cl.student_ac 
@@ -22,7 +22,7 @@
 			 "' and tl.class_year = '".$_GET['class_year'].
 			 "' and tl.this_year = '".$_GET['now'].
 			 "' and tl.semester = '".$_GET['sem'].
-			 "' ORDER BY cl.student_ac DESC";
+			 "' group by tl.talk_id ORDER BY cl.student_ac DESC";
 //	echo $sql;
 	
 	$result=$conn->query($sql);
@@ -55,6 +55,9 @@
           </tr>
         <?php
             $num_rows = $result->num_rows;	
+			$in_sem = 0;
+			$get_sem = $_GET['sem'];
+
 			if ($num_rows==0)
 			{
 				echo "<tr><th width=\"200\">目前沒有紀錄</th></tr>";
@@ -62,6 +65,8 @@
             for($i=1;$i<=$num_rows;$i++)
             {
                 $row=$result->fetch_array();				//rs 在這裏, fetch_assoc 的 index 只能用字串, 而 fetch_array 能用數字和字串作 index
+				if ($i == 1)	$in_sem = $row['semester'];
+				
         ?>
           <tr>
             <th>
@@ -118,9 +123,9 @@
             }
         ?>
 		<?php 
-			if (isset($w_r))
+			if (isset($row['w_r']) && $in_sem==$get_sem)
 			{	
-				if ($w_r[0]==1)
+				if ($row['w_r']==1)
 				{
 					$type1 = 1;
 					$type2 = 2;
