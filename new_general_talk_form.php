@@ -152,11 +152,11 @@
 					<input type="radio" name="special_family" id="sexual_abuse" value="5">
 					<label for="sexual_abuse">家庭性侵害 </label></br>
 					<input type="radio" name="special_family" id="poor" value="6">
-					<label for="poor">家庭經濟果難 </label></br>
+					<label for="poor">家庭經濟困難 </label></br>
 					<input type="radio" name="special_family" id="change" value="7">
 					<label for="change">家庭變固 </label></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="special_family" id="another" rows="2" cols="20" size="15"></textarea>
+					<textarea name="special_family_text" id="another" rows="2" cols="20" size="15"></textarea>
 				</th>
 			
 				<th bgcolor="#F9F9F9" align="left" >課業與學習 :</br>
@@ -171,7 +171,7 @@
 					<input type="radio" name="study" id="transfer" value="5">
 					<label for="transfer">考慮休學/轉學 </label></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="study" id="another" rows="5" cols="20" size="15"></textarea>
+					<textarea name="study_text" id="another" rows="5" cols="20" size="15"></textarea>
 				</th>
 				
 				<th bgcolor="#F9F9F9" align="left">生活與生涯 :</br>
@@ -180,7 +180,7 @@
 					<input type="radio" name="life" id="b" value="2">
 					<label for="b">社團娛樂困擾 </label></br>
 					<input type="radio" name="life" id="c" value="3">
-					<label for="c">休閒娛樂果擾 </label></br>
+					<label for="c">休閒娛樂困擾 </label></br>
 					<input type="radio" name="life" id="d" value="4">
 					<label for="d">人生意義疑惑 </label></br>
 					<input type="radio" name="life" id="e" value="5">
@@ -188,7 +188,7 @@
 					<input type="radio" name="life" id="f" value="6">
 					<label for="f">生活作息問題 </label></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="life" id="another" rows="4" cols="20" size="15"></textarea>
+					<textarea name="life_text" id="another" rows="4" cols="20" size="15"></textarea>
 				</th>
 			</tr>
 			<!--												第二欄											-->
@@ -203,7 +203,7 @@
 					<input type="radio" name="relation" id="d" value="4">
 					<label for="d">感情不順 </label></br>
 					<input type="radio" name="relation" id="e" value="5">
-					<label for="e">與異性分手果擾 </label></br>
+					<label for="e">與異性分手困擾 </label></br>
 					<input type="radio" name="relation" id="f" value="6">
 					<label for="f">同性溝通問題 </label></br>
 					<input type="radio" name="relation" id="g" value="7">

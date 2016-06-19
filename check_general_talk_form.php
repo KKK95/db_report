@@ -9,7 +9,7 @@
 	
     $sql = "SELECT * FROM general as g
 			where g.talk_id = '".$_GET['id']."'";
-	echo $sql;
+
 	$result=$conn->query($sql);
 
 	$row=$result->fetch_array();
@@ -35,28 +35,26 @@
 				<?php echo $row['grade']; ?>
 				</th>
 				<th bgcolor="#F2F2F2" align="center" ><label for="user_id" colspan="1">學號 : </label>
-					<input  type="text" name="user_id" id="user_id" size="10" value="">
+					<?php echo $row['user_id']; ?>
 				</th>
 				<th bgcolor="#F2F2F2" align="center" ><label for="user_name" colspan="1">姓名 : </label>
-					<input type="text" name="user_name" id="user_name" size="10" value="">
+					<?php echo $row['user_name']; ?>
 				</th>
 			</tr>
 			<tr>
 				<th width="20%" bgcolor="#F9F9F9" align="left" colspan="1"> <label for="telephone">聯絡電話 : </label>
-				<input type="text" name="telephone" id="telephone" size="12">
+				<?php echo $row['telephone']; ?>
 				</th>
 				<th width="20%" bgcolor="#F9F9F9" align="left" colspan="2"> <label for="addr">住址 : </label>
-				<input type="text" name="addr" id="addr" size="57"> 
+				<?php echo $row['addr']; ?>
 				</th>
 				
 			</tr>
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="3" > 談話日期 : 
-				<input type="text" name="year" id="year" size="2"> <label for="year">年</label>
-				<input type="text" name="month" id="month" size="1"> <label for="month">月</label>
-				<input type="text" name="day" id="day" size="1"> <label for="day">日</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<?php echo $row['talkdate']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="talk_times">第&nbsp;</label> 
-					<input type="text" name="talk_times" id="talk_times" size="1"> 
+					<?php echo $row['talk_times']; ?>
 				<label for="talk_times">&nbsp;次 </label>
 				</th>
 			</tr>
@@ -66,42 +64,56 @@
 			<tr>
 				<th bgcolor="#F9F9F9" align="center" rowspan="2"> 1. 學業 :</th>
 				<th bgcolor="#F9F9F9" align="center" colspan="2"> 
-				
-					<label for="very_good">很好 </label>
-					<input type="radio" name="level" id="very_good" value="1">
-					<label for="good">好 </label>
-					<input type="radio" name="level" id="good" value="2">
-					<label for="normal">普通 </label>
-					<input type="radio" name="level" id="normal" value="3">
-					<label for="other">再加努力 </label>
-					<input type="radio" name="level" id="other" value="4">
+					評價：
+					<?php 
+						if ( $row['level'] == 1)
+							echo "很好"; 
+						else if ( $row['level'] == 2)
+							echo "好"; 
+						else if ( $row['level'] == 3)
+							echo "普通"; 
+						else if ( $row['level'] == 4)
+							echo "再加努力"; 
+					?>
 				</th>
 			</tr>
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
 				<label for="comment">補 充 :</br></label>
-				<textarea name="commont" id="commont" rows="5" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['comment2']) )
+						echo $row['comment2']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			
 			<tr>
 				<th bgcolor="#F9F9F9" align="center" rowspan="2"> 2. 生活作息 :</th>
 				<th bgcolor="#F9F9F9" align="center" colspan="2"> 
-				
-					<label for="very_good">很好 </label>
-					<input type="radio" name="life_schedule" id="very_good" value="1">
-					<label for="good">好 </label>
-					<input type="radio" name="life_schedule" id="good" value="2">
-					<label for="normal">普通 </label>
-					<input type="radio" name="life_schedule" id="normal" value="3">
-					<label for="other">再調整 </label>
-					<input type="radio" name="life_schedule" id="other" value="4">
+					評價：
+					<?php 
+						if ( $row['life_schedule'] == 1)
+							echo "很好"; 
+						else if ( $row['life_schedule'] == 2)
+							echo "好"; 
+						else if ( $row['life_schedule'] == 3)
+							echo "普通"; 
+						else if ( $row['life_schedule'] == 4)
+							echo "再調整"; 
+					?>
 				</th>
 			</tr>
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
 				<label for="comment2">補 充 :</br></label>
-				<textarea name="commont2" id="commont2" rows="5" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['comment2']) )
+						echo $row['comment2']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			
@@ -109,217 +121,284 @@
 				<th bgcolor="#F9F9F9" align="center" rowspan="2"> 3. 家庭關系 :</th>
 				<th bgcolor="#F9F9F9" align="center" colspan="2"> 
 				
-					<label for="very_good">很好 </label>
-					<input type="radio" name="family" id="very_good" value="1">
-					<label for="good">好 </label>
-					<input type="radio" name="family" id="good" value="2">
-					<label for="normal">普通 </label>
-					<input type="radio" name="family" id="normal" value="3">
-					<label for="other">需改善 </label>
-					<input type="radio" name="family" id="other" value="4">
+					評價：
+					<?php 
+						if ( $row['family'] == 1)
+							echo "很好"; 
+						else if ( $row['family'] == 2)
+							echo "好"; 
+						else if ( $row['family'] == 3)
+							echo "普通"; 
+						else if ( $row['family'] == 4)
+							echo "需改善"; 
+					?>
 				</th>
 			</tr>
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
 				<label for="comment3">補 充 :</br></label>
-				<textarea name="commont3" id="commont3" rows="5" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['comment3']) )
+						echo $row['comment3']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			<tr>
 				<th bgcolor="#F9F9F9" align="center" rowspan="2"> 4. 人際關系 :</th>
 				<th bgcolor="#F9F9F9" align="center" colspan="2"> 
 				
-					<label for="very_good">很好 </label>
-					<input type="radio" name="social" id="very_good" value="1">
-					<label for="good">好 </label>
-					<input type="radio" name="social" id="good" value="2">
-					<label for="normal">普通 </label>
-					<input type="radio" name="social" id="normal" value="3">
-					<label for="other">需調整 </label>
-					<input type="radio" name="social" id="other" value="4">
+					評價：
+					<?php 
+						if ( $row['social'] == 1)
+							echo "很好"; 
+						else if ( $row['social'] == 2)
+							echo "好"; 
+						else if ( $row['social'] == 3)
+							echo "普通"; 
+						else if ( $row['social'] == 4)
+							echo "需調整"; 
+					?>
 				</th>
 			</tr>
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
 				<label for="comment4">補 充 :</br></label>
-				<textarea name="commont4" id="commont4" rows="5" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['comment4']) )
+						echo $row['comment4']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			<tr>
 				<th bgcolor="#F9F9F9" align="center" colspan="1"> 5. 個人特色 :</th>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
-				<textarea name="commont5" id="commont5" rows="5" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['comment5']) )
+						echo $row['comment5']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			<!--														第二頁														-->
 			
 			<tr>
-				<th bgcolor="#F9F9F9" align="left" colspan="3"> 一. 學生特殊狀況 :
+				<th bgcolor="#F9F9F9" align="left" colspan="3" > 一. 學生特殊狀況 :
 			</tr>
 			<tr>
-				<th bgcolor="#F9F9F9" align="left" >家庭關系 :</br>
-					<input type="radio" name="special_family" id="normal" value="1">
-					<label for="normal">無特殊狀況 </label></br>
-					<input type="radio" name="special_family" id="no_good" value="2">
-					<label for="no_good">與父母溝通不良 </label></br>
-					<input type="radio" name="special_family" id="bad" value="3">
-					<label for="bad">與父母不合 </label></br>
-					<input type="radio" name="special_family" id="violence" value="4">
-					<label for="violence">家庭暴力 </label></br>
-					<input type="radio" name="special_family" id="sexual_abuse" value="5">
-					<label for="sexual_abuse">家庭性侵害 </label></br>
-					<input type="radio" name="special_family" id="poor" value="6">
-					<label for="poor">家庭經濟果難 </label></br>
-					<input type="radio" name="special_family" id="change" value="7">
-					<label for="change">家庭變固 </label></br>
+				<th bgcolor="#F9F9F9" align="left" width="30%">家庭關系 :
+					<?php 
+						if ( $row['special_family'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['special_family'] == 2)
+							echo "與父母溝通不良"; 
+						else if ( $row['special_family'] == 3)
+							echo "與父母不合"; 
+						else if ( $row['special_family'] == 4)
+							echo "家庭暴力"; 
+						else if ( $row['special_family'] == 5)
+							echo "家庭性侵害"; 
+						else if ( $row['special_family'] == 6)
+							echo "家庭經濟困難"; 
+						else if ( $row['special_family'] == 7)
+							echo "家庭變固"; 
+					?>
+					</br></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="special_family" id="another" rows="2" cols="20" size="15"></textarea>
+					<?php 
+					if ( isset($row['special_family_text']) )
+						echo $row['special_family_text']; 
+					else
+						echo "\n無補充"; 
+					?>
 				</th>
 			
-				<th bgcolor="#F9F9F9" align="left" >課業與學習 :</br>
-					<input type="radio" name="study" id="normal" value="1">
-					<label for="normal">無特殊狀況 </label></br>
-					<input type="radio" name="study" id="no_funny" value="2">
-					<label for="no_funny">科系志趣不合 </label></br>
-					<input type="radio" name="study" id="hard" value="3">
-					<label for="hard">學習果難 </label></br>
-					<input type="radio" name="study" id="pressure" value="4">
-					<label for="pressure">課業生活壓力 </label></br>
-					<input type="radio" name="study" id="transfer" value="5">
-					<label for="transfer">考慮休學/轉學 </label></br>
+				<th bgcolor="#F9F9F9" align="left" width="30%">課業與學習 :
+					<?php 
+						if ( $row['study'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['study'] == 2)
+							echo "科系志趣不合"; 
+						else if ( $row['study'] == 3)
+							echo "學習困難"; 
+						else if ( $row['study'] == 4)
+							echo "課業生活壓力"; 
+						else if ( $row['study'] == 5)
+							echo "考慮休學/轉學"; 
+					?>
+					</br></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="study" id="another" rows="5" cols="20" size="15"></textarea>
+					<?php 
+					if ( isset($row['study_text']) )
+						echo $row['study_text']; 
+					else
+						echo "\n無補充"; 
+					?>
 				</th>
 				
-				<th bgcolor="#F9F9F9" align="left">生活與生涯 :</br>
-					<input type="radio" name="life" id="a" value="1">
-					<label for="a">無特殊狀況 </label></br>
-					<input type="radio" name="life" id="b" value="2">
-					<label for="b">社團娛樂困擾 </label></br>
-					<input type="radio" name="life" id="c" value="3">
-					<label for="c">休閒娛樂果擾 </label></br>
-					<input type="radio" name="life" id="d" value="4">
-					<label for="d">人生意義疑惑 </label></br>
-					<input type="radio" name="life" id="e" value="5">
-					<label for="e">生涯規劃問題 </label></br>
-					<input type="radio" name="life" id="f" value="6">
-					<label for="f">生活作息問題 </label></br>
+				<th bgcolor="#F9F9F9" align="left" width="30%">生活與生涯 :
+					<?php 
+						if ( $row['life'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['life'] == 2)
+							echo "社團娛樂困擾"; 
+						else if ( $row['life'] == 3)
+							echo "休閒娛樂困擾"; 
+						else if ( $row['life'] == 4)
+							echo "人生意義疑惑"; 
+						else if ( $row['life'] == 5)
+							echo "生涯規劃問題"; 
+						else if ( $row['life'] == 6)
+							echo "生活作息問題"; 
+					?>
+					</br></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="life" id="another" rows="4" cols="20" size="15"></textarea>
+					<?php 
+					if ( isset($row['life_text']) )
+						echo $row['life_text']; 
+					else
+						echo "\n無補充"; 
+					?>
 				</th>
 			</tr>
 			<!--												第二欄											-->
 			<tr>
-				<th bgcolor="#F9F9F9" align="left">兩性關系 :</br>
-					<input type="radio" name="relation" id="a" value="1">
-					<label for="a">無特殊狀況 </label></br>
-					<input type="radio" name="relation" id="b" value="2">
-					<label for="b">異性溝通不良 </label></br>
-					<input type="radio" name="relation" id="c" value="3">
-					<label for="c">與異性起衝突 </label></br>
-					<input type="radio" name="relation" id="d" value="4">
-					<label for="d">感情不順 </label></br>
-					<input type="radio" name="relation" id="e" value="5">
-					<label for="e">與異性分手果擾 </label></br>
-					<input type="radio" name="relation" id="f" value="6">
-					<label for="f">同性溝通問題 </label></br>
-					<input type="radio" name="relation" id="g" value="7">
-					<label for="g">同性戀傾向 </label></br>
+				<th bgcolor="#F9F9F9" align="left" >兩性關系 :
+					<?php 
+						if ( $row['relation'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['relation'] == 2)
+							echo "異性溝通不良"; 
+						else if ( $row['relation'] == 3)
+							echo "與異性起衝突"; 
+						else if ( $row['relation'] == 4)
+							echo "感情不順"; 
+						else if ( $row['relation'] == 5)
+							echo "與異性分手困擾"; 
+						else if ( $row['relation'] == 6)
+							echo "同性溝通問題"; 
+						else if ( $row['relation'] == 7)
+							echo "同性戀傾向"; 
+					?>
+					</br></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="relationtext" id="another" rows="2" cols="20" size="15"></textarea>
+					<?php 
+					if ( isset($row['relationtext']) )
+						echo $row['relationtext']; 
+					else
+						echo "\n無補充"; 
+					?>
 				</th>
 				
 				
-				<th bgcolor="#F9F9F9" align="left">兩性關系 :</br>
-					<input type="radio" name="relation2" id="a" value="1">
-					<label for="a">無特殊狀況 </label></br>
-					<input type="radio" name="relation2" id="b" value="2">
-					<label for="b">與人疏離 </label></br>
-					<input type="radio" name="relation2" id="c" value="3">
-					<label for="c">與人溝通不良 </label></br>
-					<input type="radio" name="relation2" id="d" value="4">
-					<label for="d">易與人起衡突 </label></br>
-					<input type="radio" name="relation2" id="e" value="5">
-					<label for="e">分離失落感 </label></br>
-					<input type="radio" name="relation2" id="f" value="6">
-					<label for="f">其他 </label></br>
+				<th bgcolor="#F9F9F9" align="left" >兩性關系 :
+					<?php 
+						if ( $row['life'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['life'] == 2)
+							echo "與人疏離"; 
+						else if ( $row['life'] == 3)
+							echo "與人溝通不良"; 
+						else if ( $row['life'] == 4)
+							echo "易與人起衡突"; 
+						else if ( $row['life'] == 5)
+							echo "分離失落感"; 
+						else if ( $row['life'] == 6)
+							echo "其他"; 
+					?>
+					</br></br>
 					<label for="another" style="display:block">補充 : </label>
-					<textarea name="relationtext2" id="another" rows="3" cols="20" size="15"></textarea>
+					<?php 
+					if ( isset($row['relationtext2']) )
+						echo $row['relationtext2']; 
+					else
+						echo "\n無補充"; 
+					?>				
 				</th>
 				
-				<th bgcolor="#F9F9F9" align="left">身心狀況 :</br>
-					<input type="radio" name="study2" id="a" value="1">
-					<label for="a">無特殊狀況 </label></br>
-					<input type="radio" name="study2" id="b" value="2">
-					<label for="b">憂鬱傾向 </label></br>
-					<input type="radio" name="study2" id="c" value="3">
-					<label for="c">焦慮傾向 </label></br>
-					<input type="radio" name="study2" id="d" value="4">
-					<label for="d">生理問題 </label></br>
-					<label for="another" style="display:block">補充 : </label>
-					<textarea name="studytext2" id="another" rows="5" cols="20" size="15"></textarea>
+				<th bgcolor="#F9F9F9" align="left" >身心狀況 :
+					<?php 
+						if ( $row['study2'] == 1)
+							echo "無特殊狀況"; 
+						else if ( $row['study2'] == 2)
+							echo "憂鬱傾向"; 
+						else if ( $row['study2'] == 3)
+							echo "焦慮傾向"; 
+						else if ( $row['study2'] == 4)
+							echo "生理問題"; 
+					?>
+					</br></br>
+					<label for="another" style="display:block" >補充 : </label>
+					<?php 
+					if ( isset($row['studytext2']) )
+						echo $row['studytext2']; 
+					else
+						echo "\n無補充"; 
+					?>	
 				</th>
 			</tr>
 			
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="1"> 導師補充意見 :</th>
 				<th bgcolor="#F9F9F9" align="left" colspan="2">
-				<textarea name="commont6" id="commont6" rows="3" cols="60" size="57"></textarea>
+				<?php 
+					if ( isset($row['commont6']) )
+						echo $row['commont6']; 
+					else
+						echo "\n無補充"; 
+				?>
 			</tr>
 			
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="3"> 是否需轉介學生輔導相關單位 :
-
-					<input type="radio" name="need_to_transfer" id="need_to_transfer" value="1">
-					<label for="need_to_transfer">需轉介 </label>
-					<input type="radio" name="need_to_transfer" id="noneed_to_transfer" value="2">
-					<label for="need_to_transfer">不需轉介 </label>
+					<?php 
+					if ( $row['need_to_transfer'] == 1 )
+					{
+						echo "需轉介至:";
+						if ($row['transfer'] == 1)
+							echo "學生咨商中心";
+						else if ($row['transfer'] == 2)
+							echo "生活輔導組";
+						else if ($row['transfer'] == 3)
+							echo "僑外組";
+						else if ($row['transfer'] == 4)
+							echo "課外組";
+						else if ($row['transfer'] == 5)
+							echo "衛保組";
+					}	
+					else
+						echo "\n無需轉介"; 
+					?>
 					
 				</th>
 			</tr>
-			
-			<tr>
-				<th bgcolor="#F9F9F9" align="left" colspan="3"> 轉介單位 :	
 
-					<input type="radio" name="transfer" id="a" value="1">
-					<label for="a">學生咨商中心 </label>
-					<input type="radio" name="transfer" id="b" value="2">
-					<label for="b">生活輔導組 </label>
-					<input type="radio" name="transfer" id="c" value="3">
-					<label for="c">僑外組 </label>
-					<input type="radio" name="transfer" id="d" value="4">
-					<label for="d">課外組 </label>
-					<input type="radio" name="transfer" id="e" value="5">
-					<label for="e">衛保組 </label>
-				</th>
-			</tr>
-			
 			<tr>
 				<th bgcolor="#F9F9F9" align="left" colspan="3"> 是否需建議學校相關單位於法規措施或設施作調整 :	
-
-					<input type="radio" name="feeback" id="feeback" value="1">
-					<label for="feeback">需要 </label>
-					<input type="radio" name="feeback" id="nofeeback" value="2">
-					<label for="feeback">不需要 </label>
+					<?php 
+					if ( $row['feeback'] == 1 )
+					{
+						echo "需建議單位:";
+						if ($row['transfer2'] == 1)
+							echo "教務處";
+						else if ($row['transfer2'] == 2)
+							echo "總務處";
+						else if ($row['transfer2'] == 3)
+							echo "學務處";
+						else if ($row['transfer2'] == 4)
+							echo "圖資管";
+						else if ($row['transfer2'] == 5)
+							echo "秘書室";
+					}	
+					else
+						echo "\n不需要"; 
+					?>
 				</th>
 			</tr>
-			
-			<tr>
-				<th bgcolor="#F9F9F9" align="left" colspan="3"> 需建議單位 :	
-
-					<input type="radio" name="transfer2" id="a" value="1">
-					<label for="a">教務處 </label>
-					<input type="radio" name="transfer2" id="b" value="2">
-					<label for="b">總務處 </label>
-					<input type="radio" name="transfer2" id="c" value="3">
-					<label for="c">學務處 </label>
-					<input type="radio" name="transfer2" id="d" value="4">
-					<label for="d">圖資管 </label>
-					<input type="radio" name="transfer2" id="e" value="5">
-					<label for="e">秘書室 </label>
-				</th>
-			</tr>
-			
 		</table>
 		<br />
 
