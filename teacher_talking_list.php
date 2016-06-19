@@ -12,7 +12,7 @@
 
 	$ac=$_SESSION['ac'];	
 	
-    $sql = "SELECT tl.type, tl.talk_id, m.name, tl.this_year, cl.w_r, g.talkdate, cl.semester
+    $sql = "SELECT tl.type, tl.talk_id, m.name, tl.this_year, cl.w_r, g.talkdate, tl.semester
 			FROM talking_record as tl, member as m, general as g, class_list as cl
 			where tl.talk_id = g.talk_id 
 				and m.ac = cl.student_ac 
@@ -123,6 +123,8 @@
             }
         ?>
 		<?php 
+			echo $in_sem;
+			echo $get_sem;
 			if (isset($row['w_r']) && $in_sem==$get_sem)
 			{	
 				if ($row['w_r']==1)
