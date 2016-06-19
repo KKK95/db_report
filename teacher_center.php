@@ -43,6 +43,7 @@
 							<a href="teacher_center.php?page=message_board.php">留言版</a><br>
 							<a href="teacher_center.php?page=contect.php">發送E-mail</a><br>
 							<a href="teacher_center.php?page=teacher_get_my_class_list.php">學生會談記錄</a><br>
+							<a href="teacher_center.php?page=student_address.php">學生住宿</a><br>
 							<a href="logout.php">登出系統</a><br>
 						</p>
 					</div>
