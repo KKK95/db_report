@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
 <head>
 <script
@@ -22,36 +22,53 @@ function initialize()
 	
 	require_once ('connMysql.php');
 
-	require_once("login_check.php");			//login_check.php ¬O¥Î¨ÓÀË¬d¥Î¤á¬O§_µn¿ý¤F
+	require_once("login_check.php");			//login_check.php æ˜¯ç”¨ä¾†æª¢æŸ¥ç”¨æˆ¶æ˜¯å¦ç™»éŒ„äº†
 	
-	$sql = "SELECT member.addr FROM member, class_list WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
+	$sql = "SELECT member.addr, member.name FROM member, class_list WHERE class_list.teacher_ac='" . $_SESSION["ac"] . "'
 			AND class_list.student_ac=member.ac";
 	
-	$result = $conn->query($sql);									// mysql_query ¬d¸ß, ¨ú±o¬d¸ßªºµ²ªG
-	
-	// get data of each row
-    while($row = $result->fetch_assoc()) {
-		echo "addr.push(\"" . $row["addr"] . "\");";
-	}
-	
+	$result = $conn->query($sql);									// mysql_query æŸ¥è©¢, å–å¾—æŸ¥è©¢çš„çµæžœ
 	?>
 
-	var marker, infoWindow = new google.maps.InfoWindow();
+	// get data of each row
+    <?php while($row = $result->fetch_assoc()) : ?>
+		addr.push([ <?php echo '"' . $row["addr"] . '", "' . $row["name"] . '"' ?> ]);
+	<?php endwhile; ?>
+	
+	addr.sort();
+	
+	var sort_addr = [], sort_stud = [];
 	
 	for(var i = 0; i < addr.length; i++) {
-		geocoder.geocode({ 'address' : addr[i]}, function(results, status) {
+		if(i == 0 || addr[i - 1][0] != addr[i][0]) {
+			sort_addr.push(addr[i][0]);
+			sort_stud.push(addr[i][1]);
+		}
+		else {
+			sort_stud[sort_stud.length - 1] += ", " + addr[i][1];
+		}
+	}
+
+	var i, marker, infoWindow = new google.maps.InfoWindow(), geocoder = new google.maps.Geocoder();;
+	
+	for(i = 0; i < sort_addr.length; i++) {
+		geocoder.geocode({ 'address' : sort_addr[i] }, function(results, status) {
 			if(status == google.maps.GeocoderStatus.OK) {
 				marker = new google.maps.Marker({
+					map : map,
 					position : results[0].geometry.location,
 				});
 				
 				// Allow each marker to have an info window
 				google.maps.event.addListener(marker, 'click', function(marker, i) {
 					return function() {
-						infoWindow.setContent(i);
+						infoWindow.setContent(sort_stud[i]);
 						infoWindow.open(map, marker);
 					}
 				} (marker, i));
+			}
+			else {
+				alert('Geocode was not successful for the following reason: ' + status);
 			}
 		});
 	}
