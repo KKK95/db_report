@@ -55,7 +55,15 @@
 					<p>--------------------------------------------------------</p>
 					</th>
 					<th>
-					<a href="teacher_talking_list.php?id=<?php echo $year; ?>&now=<?php echo $now; ?>">查看/編輯會談記錄</a>
+					<?php
+						$teacher_talking_list_link = "<a href=\"teacher_talking_list.php?class_year=".$year.
+																						"&now=".$now.
+																						"&sem=".$months.
+																						"\">查看/編輯會談記錄</a>";
+						
+						echo $teacher_talking_list_link;
+						
+					?>
 					</th>
 				  </tr>
 				<?php
