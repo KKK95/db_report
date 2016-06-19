@@ -1,77 +1,125 @@
-<?php
+ï»¿<?php
 
 	header("Content-Type: text/html; charset=UTF-8");
 	
-	require_once ('connMysql.php');			//¤Þ¥ÎconnMysql.php ¨Ó³s±µ¸ê®Æ®w
+	require_once ('connMysql.php');			//å¼•ç”¨connMysql.php ä¾†é€£æŽ¥è³‡æ–™åº«
 	
-			
-		if ($_POST["grade"]=="")
-			$_POST["grade"] = NULL;
-		if ($_POST["user_id"]=="")
-			$_POST["user_id"] = NULL;
-		if ($_POST["user_name"]=="")
-			$_POST["user_name"] = NULL;
-		if ($_POST["telephone"]=="")
-			$_POST["telephone"] = NULL;
+	if ($_POST["class"]=="")
+		$_POST["class"] = NULL;
+	if ($_POST["user_id"]=="")
+		$_POST["user_id"] = NULL;
+	if ($_POST["user_name"]=="")
+		$_POST["user_name"] = NULL;
+	if ($_POST["telephone"]=="")
+		$_POST["telephone"] = NULL;
+	if ($_POST["address"]=="")
+		$_POST["address"] = NULL;
+	
+	if ($_POST["parent_name"]=="")
+		$_POST["parent_name"] = NULL;
+	if ($_POST["home_phone"]=="")
+		$_POST["home_phone"] = NULL;
+	if ($_POST["parent_telephone"]=="")
+		$_POST["parent_telephone"] = NULL;
 		
-		if ($_POST["relationtext2"]=="")
-			$_POST["relationtext2"] = NULL;
-		if ($_POST["studytext2"]=="")
-			$_POST["studytext2"] = NULL;
-		if ($_POST["life_text"]=="")
-			$_POST["life_text"] = NULL;
+	if ($_POST["roommate"]=="")
+		$_POST["roommate"] = NULL;
+	
+	if ($_POST["homeowner_name"]=="")
+		$_POST["homeowner_name"] = NULL;
+	if ($_POST["homeowner_phone"]=="")
+		$_POST["homeowner_phone"] = NULL;
+	if ($_POST["homeowner_address"]=="")
+		$_POST["homeowner_address"] = NULL;
 		
-		if ($_POST["special_family_text"]=="")
-			$_POST["special_family_text"] = NULL;
-		if ($_POST["study_text"]=="")
-			$_POST["study_text"] = NULL;
-		if ($_POST["commont6"]=="")
-			$_POST["commont6"] = NULL;
-		if ($_POST["need_to_transfer"]== 2)
-			$_POST["transfer"] = 0;
-		if ($_POST["feeback"]== 2)
-			$_POST["transfer2"] = 0;
+	if ($_POST["floor_number"]== "")
+		$_POST["floor_number"] = NULL;
+	if ($_POST["floors"]== "")
+		$_POST["floors"] = NULL;
+	if ($_POST["rent"]=="")
+		$_POST["rent"] = NULL;
+	if ($_POST["deposit"]=="")
+		$_POST["deposit"] = NULL;
+	if ($_POST["age"]=="")
+		$_POST["age"] = NULL;
+	if ($_POST["type"]=="")
+		$_POST["type"] = NULL;
 		
-		$sql = "SELECT g.talkdate, g.user_id 
-				FROM general as g 
-				where g.talkdate = '".$_POST["year"]."-".$_POST["month"]."-".$_POST["day"].
-				"' and g.user_id = '".$_POST["user_id"]."'";
+	if ($_POST["contract"]=="")
+		$_POST["contract"] = NULL;
+	if ($_POST["illegal_building"]=="")
+		$_POST["illegal_building"] = NULL;
+	if ($_POST["right"]=="")
+		$_POST["right"] = NULL;
+	if ($_POST["right_info"]=="")
+		$_POST["right_info"] = NULL;
+	if ($_POST["fire_control"]=="")
+		$_POST["fire_control"] = NULL;
+	if ($_POST["fire_alarm"]=="")
+		$_POST["fire_alarm"] = NULL;
+	if ($_POST["water_heater"]=="")
+		$_POST["water_heater"] = NULL;
+	if ($_POST["lighting"]=="")
+		$_POST["lighting"] = NULL;
+	if ($_POST["environment"]=="")
+		$_POST["environment"] = NULL;
+	if ($_POST["device"]=="")
+		$_POST["device"] = NULL;
+	if ($_POST["distance"]=="")
+		$_POST["distance"] = NULL;
+	if ($_POST["personality"]=="")
+		$_POST["personality"] = NULL;
+	if ($_POST["security"]=="")
+		$_POST["security"] = NULL;
+		
+	if ($_POST["visitor"]=="")
+		$_POST["visitor"] = NULL;
+	
+	$sql = "SELECT g.talkdate, g.user_id 
+			FROM general as g 
+			where g.talkdate = '".$_POST["year"]."-".$_POST["month"]."-".$_POST["day"].
+			"' and g.user_id = '".$_POST["user_id"]."'";
+	
+	$result=$conn->query($sql);
+	
+	$num_rows = $result->num_rows;	
+	
+	if ($num_rows != 0)
+		echo "æ–°å¢žè³‡æ–™è¡¨èˆ‡éŽå¾€è³‡æ–™è¡¨æœ‰è¡¡çª, è«‹æª¢æŸ¥è³‡æ–™è¡¨å…§å®¹æ˜¯å¦æ­£å¸¸";
+	else
+	{
+		$date = $_POST["year"] . "-" . $_POST["month"] . "-" . $_POST["day"];
+		
+		$sql = "INSERT INTO address	(date,class,user_id,user_name,telephone,address,parent_name,home_phone,parent_telephone,roommate,homeowner_name,
+				homeowner_phone,homeowner_address,floor_number,floors,rent,deposit,age,type,contract,illegal_building,right,right_info,fire_control,
+				fire_alarm,water_heater,lighting,environment,device,distance,personality,security,visitor) VALUES('"
+				 . $date . "'," . $_POST["class"] . ",'" . $_POST["user_id"] . "','" . $_POST["user_name"] . "','" . $_POST["telephone"] . "','"
+				 . $_POST["address"] . "','" . $_POST["parent_name"] . "','" . $_POST["home_phone"] . "','" . $_POST["parent_telephone"] . "','"
+				 . $_POST["roommate"] . "','" . $_POST["homeowner_name"] . "','" . $_POST["homeowner_phone"] . "','" . $_POST["homeowner_address"] . "','"
+				 . $_POST["floor_number"] . "','" . $_POST["floors"] . "','" . $_POST["rent"] . "','" . $_POST["deposit"] . "','" . $_POST["age"] . "','"
+				 . $_POST["type"] . "','" . $_POST["contract"] . "','" . $_POST["illegal_building"] . "','" . $_POST["right"] . "','"
+				 . $_POST["right_info"] . "','" . $_POST["fire_control"] . "','" . $_POST["fire_alarm"] . "','" . $_POST["water_heater"] . "','"
+				 . $_POST["lighting"] . "','" . $_POST["environment"] . "','" . $_POST["device"] . "','" . $_POST["distance"] . "','"
+				 . $_POST["personality"] . "','" . $_POST["security"] . "','" . $_POST["visitor"]
+				 . "')";
 		
 		$result=$conn->query($sql);
 		
-		$num_rows = $result->num_rows;	
-		
-		if ($num_rows != 0)
-			echo "·s¼W¸ê®Æªí»P¹L©¹¸ê®Æªí¦³¿Å¬ð, ½ÐÀË¬d¸ê®Æªí¤º®e¬O§_¥¿±`";
-		else
-		{
-			$sql = "INSERT INTO general	(grade,user_id,user_name,telephone,addr,talkdate,talk_times,level,commont,life_schedule,commont2,family,commont3,social,
-											commont4,commont5,special_family,special_family_text,study,study_text,life,life_text,relation,relationtext,relation2,
-											relationtext2,study2,studytext2,commont6,need_to_transfer,transfer,feeback,transfer2)VALUES
-				 ('".$_POST["grade"]."','".$_POST["user_id"]."','".$_POST["user_name"]."','".$_POST["telephone"]."','"
-					.$_POST["addr"]."' ,'".$_POST["year"]."-".$_POST["month"]."-".$_POST["day"]."','".$_POST["talk_times"]."'
-					,'".$_POST["level"]."','".$_POST["commont"]."','".$_POST["life_schedule"]."','"
-					.$_POST["commont2"]."','".$_POST["family"]."','".$_POST["commont3"]."','".$_POST["social"]."','".$_POST["commont4"]."','".$_POST["commont5"]."'
-					,'".$_POST["special_family"]."','".$_POST["special_family_text"]."','".$_POST["study"]."','".$_POST["study_text"]."','".$_POST["life"].
-					"','".$_POST["life_text"]."','".$_POST["relation"]."','".$_POST["relationtext"]."','".$_POST["relation2"]."','".$_POST["relationtext2"].
-					"','".$_POST["study2"]."','".$_POST["studytext2"]."','".$_POST["commont6"]."','".$_POST["need_to_transfer"]."','".$_POST["transfer"].
-					"','".$_POST["feeback"]."','".$_POST["transfer2"]."')";
-			
-			$result=$conn->query($sql);
-			
-			$sql = "select g.talk_id
-					from general as g
-					where g.user_id = '".$_POST['user_id'].
-				   "' and g.talkdate = '".$_POST["year"]."-".$_POST["month"]."-".$_POST["day"].
-					"' ";
+		$sql = "SELECT talk_id
+				FROM address
+				WHERE user_id = '" . $_POST['user_id'] . "' AND date = '" . $date . "'";
 
-			$result=$conn->query($sql);
-			$row=$result->fetch_array();
-			
-			$sql = "INSERT INTO talking_record (class_year, this_year, semester, teacher_ac, student_ac, type, talk_id)VALUES
-					('".$_POST["class_year"]."','".$_POST["year"]."','".$_POST["semester"]."','".
-						$_POST["teacher_ac"]."','".$_POST["user_id"]."','".$_POST["type"]."','".$row['talk_id']."')";
+		$result=$conn->query($sql);
+		$row=$result->fetch_array();
+		
+		$sql = "INSERT INTO talking_record (class_year, this_year, semester, teacher_ac, student_ac, type, talk_id) VALUES('"
+				 . $_POST["class_year"] . "','" . $_POST["year"] . "','";
+		if($_POST["month"] >= 2 && $_POST["month"] <= 7)
+			$sql .= 2;
+		else
+			$sql .= 1;
+		$sql .= "','" . $_POST["teacher_ac"] . "','" . $_POST["user_id"] . "','" . $_POST["type"] . "','" . $row["talk_id"] . "')";
 					
-			$result=$conn->query($sql);
-		}
+		$result=$conn->query($sql);
+	}
 ?>
