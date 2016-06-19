@@ -132,6 +132,11 @@
 				</th>
 			</tr>
 			
+			<input value="<?php echo $_GET['teacher_ac']?>" name="teacher_ac" type="hidden">
+			<input value="<?php echo $_GET['sem']?>" name="semester" type="hidden">
+			<input value="<?php echo $_GET['class_year']?>" name="class_year" type="hidden">
+			<input value="<?php echo $_GET['type']?>" name="type" type="hidden">
+			
 		</table>
 		
 		<br />
